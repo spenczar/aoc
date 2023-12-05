@@ -7,37 +7,47 @@
 #define MAX_BLUE 14
 #define noop
 
-int exceeds_max(char *line) {
+typedef struct Triple {
+  long blue_max;
+  long red_max;
+  long green_max;
+} Triple;
+
+long triple_power(Triple t) {
+  return (t.blue_max * t.red_max * t.green_max);
+}
+
+Triple maxes(char *line) {
   char *chunk, *draw, *endptr;
   long qty;
+  Triple max_counts = {0, 0, 0};
   while ((chunk = strsep(&line, ";")) != NULL) {
     char *chunk_copy = chunk;
     while ((draw = strsep(&chunk_copy, ",")) != NULL) {
       qty = strtol(draw, &endptr, 10);
       switch (endptr[1]) {
       case 'b':
-        if (qty > MAX_BLUE) {
-          return 1;
+        if (qty > max_counts.blue_max) {
+          max_counts.blue_max = qty;
         }
         break;
       case 'r':
-        if (qty > MAX_RED) {
-          return 1;
+        if (qty > max_counts.red_max) {
+          max_counts.red_max = qty;
         }
         break;
       case 'g':
-        if (qty > MAX_GREEN) {
-          return 1;
+        if (qty > max_counts.green_max) {
+          max_counts.green_max = qty;
         }
         break;
       default:
         printf("ERROR! char is %c", endptr[1]);
-        return -1;
         break;
       }
     }
   }
-  return 0;
+  return max_counts;
 }
 
 int main(int argc, char * argv[]) {
@@ -59,9 +69,8 @@ int main(int argc, char * argv[]) {
     line_copy = strstr(line_copy, ":");
     line_copy = line_copy + 2;
 
-    if (exceeds_max(line_copy) == 0) {
-      total += game_id;
-    }
+    Triple max_quantities = maxes(line_copy);
+    total += triple_power(max_quantities);
   }
   printf("\ntotal: %ld\n", total);
 }
