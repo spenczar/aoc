@@ -3,7 +3,7 @@
 #include <stdbool.h>
 
 size_t num_lines(FILE *inputf) {
-  // scan the input file and count the number of lines  
+  // scan the input file and count the number of lines
   size_t num_lines = 0;
   char *line = NULL;
   size_t linecap = 0;
@@ -86,7 +86,7 @@ bool adjacent_to_symbol(bool **symbol_map, size_t i, size_t j, size_t N, size_t 
       return true;
     }
   }
-  
+
   if (j < M-1) {
     if (symbol_map[i][j+1]) {
       return true;
@@ -146,7 +146,7 @@ long sum_part_numbers(FILE *inputf) {
 	  } else {
 	    printf("not a part number: %.*s\n", (int)(line+j-number_start), number_start);
 	  }
-	 
+
 	  in_number = false;
 	  is_part = false;
 	  number_start = NULL;
