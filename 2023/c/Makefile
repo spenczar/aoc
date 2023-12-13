@@ -9,7 +9,10 @@ all: build \
 	build/bin/day3_q2 \
 	build/bin/day4_q1 \
 	build/bin/day4_q2 \
-	build/bin/day5_q1 
+	build/bin/day5_q1 \
+	build/bin/day5_q2 \
+	build/bin/day7_q1 \
+	build/bin/day7_q2 \
 
 build:
 	mkdir -p build
