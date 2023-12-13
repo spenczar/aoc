@@ -1,0 +1,54 @@
+
+Let T = race time
+D = distance record
+
+X = time spent holding
+Y = time spent moving
+Z = distance traveled
+
+
+X + Y = T
+X * Y = Z
+
+For how many integer X, Y is Z > D?
+
+
+
+T = 48, D = 261:
+
+X + Y = 48
+
+X * Y > 261
+
+X = 48 - Y
+
+(48 - Y) * Y > 261
+
+48Y -Y2 > 0
+
+Roots at y^2 - 48Y + 261 = 0
+
+(48 +/- sqrt(48^2 - 4 * 261)) / 2
+
+-> y = 6.25, 41.75
+Rounding leads to [7..41] being valid, == 35 valid answers
+
+Again for next -> 16, 77 = 62
+
+Next -> 15, 69 = 55
+Next -> 28, 38 = 11
+
+35 * 62 * 55 * 11 = 1312850
+
+
+---
+
+Part 2:
+
+T = 71,530
+D = 940,200
+
+-> 14, 71516
+
+48938466
+261119210191063 = 36749103
