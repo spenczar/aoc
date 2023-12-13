@@ -122,21 +122,21 @@ struct InputData* parse_input(FILE* f) {
   return data;
 }
 
-long min_location(struct InputData* data) {
+long min_location2(struct InputData* data) {
   long id, min = LONG_MAX;
 
-  for (size_t i = 0; i < data->n_seeds; i++) {
+  for (size_t i = 0; i < data->n_seeds; i += 2) {
     printf("Seed %ld\n", data->seeds[i]);
-    id = data->seeds[i];
-    printf("%ld ->", id);
-    for (size_t j = 0; j < data->n_mapping_sets; j++) {
-      id = apply_map_set(id, data->mapping_sets[j]);
-      printf(" %ld ->", id);
-    }
-    printf("\n");
-    if (id < min) {
-      printf("New min: %ld\n", id);
-      min = id;
+    printf("Seed range %ld\n", data->seeds[i+1]);
+    for (long j = 0; j < data->seeds[i+1]; j++) {
+      id = data->seeds[i] + j;
+      for (size_t k = 0; k < data->n_mapping_sets; k++) {
+	id = apply_map_set(id, data->mapping_sets[k]);
+      }
+      if (id < min) {
+	printf("New min: %ld\n", id);
+	min = id;
+      }
     }
   }
   return min;
@@ -159,7 +159,7 @@ int main(int argc, char** argv) {
 
   struct InputData* data = parse_input(f);
 
-  long min = min_location(data);
+  long min = min_location2(data);
   // Mark end time
   diff = clock() - start;
   printf("Time: %ld usec\n", diff);
